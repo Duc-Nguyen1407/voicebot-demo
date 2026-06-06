@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.6">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px 'Helvetica Neue'}
+    span.s1 {font: 12.0px Helvetica}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="ja"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1">&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1">&lt;title&gt;AI Voicebot Demo&lt;/title&gt;</p>
+<p class="p1">&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-family: sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>justify-content: center;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>height: 100vh;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background: #1a1a2e;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>h1 { font-size: 1.5rem; margin-bottom: 10px; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>#status {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-size: 1rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color: #aaa;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>margin-bottom: 30px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>min-height: 24px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>#btn {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>width: 120px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>height: 120px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border-radius: 50%;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border: none;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>background: #e94560;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-size: 2rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>transition: transform 0.2s, background 0.2s;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>#btn:hover { transform: scale(1.05); }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>#btn.listening { background: #0f3460; animation: pulse 1s infinite; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>@keyframes pulse {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>0%, 100% { box-shadow: 0 0 0 0 rgba(233,69,96,0.4); }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>50% { box-shadow: 0 0 0 20px rgba(233,69,96,0); }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>#transcript {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>margin-top: 30px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>max-width: 500px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>color: #ccc;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>font-size: 0.95rem;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>min-height: 60px;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1">&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;h1&gt;🤖 AI受付ボット&lt;/h1&gt;</p>
+<p class="p1">&lt;div id="status"&gt;ボタンを押して話しかけてください&lt;/div&gt;</p>
+<p class="p1">&lt;button id="btn" onclick="toggleListen()"&gt;🎤&lt;/button&gt;</p>
+<p class="p1">&lt;div id="transcript"&gt;&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;script&gt;</p>
+<p class="p3"><span class="s1">const API_KEY = "</span>AQ.Ab8RN6JnLtg0BajScwvOFJoyqWJ4yugn68oR2-tgbb_LgwWx4g<span class="s1">";</span></p>
+<p class="p2"><br></p>
+<p class="p1">const SYSTEM_PROMPT = `あなたはレストランの受付AIアシスタントです。</p>
+<p class="p1">お客様の予約を受け付けてください。</p>
+<p class="p1">必要な情報：名前、人数、日時。</p>
+<p class="p1">日本語で丁寧に、短く返答してください。`;</p>
+<p class="p2"><br></p>
+<p class="p1">let recognition;</p>
+<p class="p1">let isListening = false;</p>
+<p class="p1">let conversationHistory = [];</p>
+<p class="p2"><br></p>
+<p class="p1">function initSpeech() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>recognition = new webkitSpeechRecognition();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>recognition.lang = "ja-JP";</p>
+<p class="p1"><span class="Apple-converted-space">  </span>recognition.continuous = false;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>recognition.interimResults = false;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>recognition.onresult = async (e) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const userText = e.results[0][0].transcript;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById("transcript").innerText = "あなた: " + userText;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById("status").innerText = "考え中...";</p>
+<p class="p1"><span class="Apple-converted-space">    </span>setListening(false);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>await sendToGemini(userText);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>recognition.onerror = () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById("status").innerText = "エラーが発生しました。もう一度お試しください。";</p>
+<p class="p1"><span class="Apple-converted-space">    </span>setListening(false);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>recognition.onend = () =&gt; setListening(false);</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function setListening(val) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>isListening = val;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const btn = document.getElementById("btn");</p>
+<p class="p1"><span class="Apple-converted-space">  </span>btn.classList.toggle("listening", val);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>btn.innerText = val ? "⏹" : "🎤";</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function toggleListen() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (!recognition) initSpeech();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (isListening) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>recognition.stop();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>setListening(false);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>recognition.start();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>setListening(true);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById("status").innerText = "聞いています...";</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">async function sendToGemini(userText) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>conversationHistory.push({ role: "user", parts: [{ text: userText }] });</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>const res = await fetch(</p>
+<p class="p1"><span class="Apple-converted-space">    </span>`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>method: "POST",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>headers: { "Content-Type": "application/json" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>body: JSON.stringify({</p>
+<p class="p1"><span class="Apple-converted-space">        </span>system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },</p>
+<p class="p1"><span class="Apple-converted-space">        </span>contents: conversationHistory</p>
+<p class="p1"><span class="Apple-converted-space">      </span>})</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>const data = await res.json();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const botText = data.candidates?.[0]?.content?.parts?.[0]?.text || "すみません、もう一度お願いします。";</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>conversationHistory.push({ role: "model", parts: [{ text: botText }] });</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById("transcript").innerText = `あなた: ${userText}\n\nボット: ${botText}`;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById("status").innerText = "返答中...";</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>speak(botText);</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function speak(text) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const utter = new SpeechSynthesisUtterance(text);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>utter.lang = "ja-JP";</p>
+<p class="p1"><span class="Apple-converted-space">  </span>utter.onend = () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById("status").innerText = "ボタンを押して話しかけてください";</p>
+<p class="p1"><span class="Apple-converted-space">  </span>};</p>
+<p class="p1"><span class="Apple-converted-space">  </span>speechSynthesis.speak(utter);</p>
+<p class="p1">}</p>
+<p class="p1">&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
