@@ -48,11 +48,11 @@ function toggleListen(){
 }
 async function send(txt){
   history.push({role:"user",content:txt});
-  const r=await fetch("https://openrouter.ai/api/v1/chat/completions",{
+  const r=await fetch("https://api.groq.com/openai/v1/chat/completions",{
     method:"POST",
     headers:{"Content-Type":"application/json","Authorization":"Bearer "+API_KEY},
     body:JSON.stringify({
-      model:"google/gemini-2.0-flash-exp:free",
+      model:"llama-3.3-70b-versatile",
       messages:[{role:"system",content:SYSTEM_PROMPT},...history]
     })
   });
